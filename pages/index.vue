@@ -76,7 +76,7 @@
   </v-row>
 </template>
 
-<script>
+<script lang="ts">
 import Logo from '~/components/Logo.vue'
 import VuetifyLogo from '~/components/VuetifyLogo.vue'
 
@@ -85,8 +85,8 @@ export default {
     Logo,
     VuetifyLogo
   },
-  asyncData(ctx) {
-    const teams = ctx.$api.teams.index()
+  asyncData({ $api }) {
+    const teams = $api.teams.index()
     return {
       teams,
     }
