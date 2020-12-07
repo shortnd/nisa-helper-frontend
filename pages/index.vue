@@ -84,6 +84,12 @@ export default {
   components: {
     Logo,
     VuetifyLogo
+  },
+  asyncData(ctx) {
+    const teams = ctx.$api.teams.index()
+    return {
+      teams,
+    }
   }
 }
 </script>
