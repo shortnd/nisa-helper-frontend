@@ -3,7 +3,9 @@
     <h1>Teams</h1>
     <ul v-if="teams">
       <li v-for="team in teams" :key="team.id">
-        <nuxt-link :to="`/teams/${team.id}`">{{ team.name }}</nuxt-link>
+        <nuxt-link :to="`/teams/${team.id}`">
+          {{ team.name }}
+        </nuxt-link>
       </li>
     </ul>
     <div v-else>
@@ -15,7 +17,8 @@
 <script lang="ts">
 import { Team } from '~/api/teams'
 export default {
-  asyncData({ $api }) {
+  middleware: 'auth',
+  asyncData ({ $api }) {
     const teams: Promise<Team[]> = $api.teams.index()
     return {
       teams

@@ -27,7 +27,7 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
-    '~/plugins/nisaHelperAPI.ts',
+    '~/plugins/nisaHelperAPI.ts'
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -38,19 +38,53 @@ export default {
     // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
     // https://go.nuxtjs.dev/vuetify
-    '@nuxtjs/vuetify',
+    '@nuxtjs/vuetify'
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    // https://dev.auth.nuxtjs.org/guide/setup
+    '@nuxtjs/auth-next'
   ],
+
+  auth: {
+    //
+    redirect: {
+      login: '/login'
+      // home: false
+    },
+    strategies: {
+      laravelSanctum: {
+        provider: 'laravel/sanctum',
+        url: '/laravel',
+        endpoints: {
+          login: {
+            url: '/login'
+          },
+          user: {
+            url: '/api/v1/user'
+          },
+          logout: {
+            url: '/logout'
+          }
+        }
+      }
+    }
+  },
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-    baseURL: process.env.BASE_URL || 'https://nisa-helper-api.test/',
-    credentials: true,
+    proxy: true,
+    credentials: true
+  },
+
+  proxy: {
+    '/laravel': {
+      target: 'http://sanctum-api.test',
+      pathRewrite: { '^/laravel': '' }
+    }
   },
 
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)

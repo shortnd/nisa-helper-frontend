@@ -85,10 +85,10 @@ export default {
     Logo,
     VuetifyLogo
   },
-  asyncData({ $api }) {
+  asyncData ({ $api }) {
     const teams = $api.teams.index()
     return {
-      teams,
+      teams
     }
   }
 }
